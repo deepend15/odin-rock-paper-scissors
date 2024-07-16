@@ -23,3 +23,32 @@ function getHumanChoice() {
         return "scissors";
     }
 }
+
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === "rock" && computerChoice === "paper") {
+        ++computerScore;
+        return console.log("You lose! Paper beats rock.");
+    } else if (humanChoice === "rock" && computerChoice === "scissors") {
+        ++humanScore;
+        return console.log("You win! Rock beats scissors.");
+    } else if (humanChoice === "paper" && computerChoice === "rock") {
+        ++humanScore;
+        return console.log("You win! Paper beats rock.");
+    } else if (humanChoice === "paper" && computerChoice === "scissors") {
+        ++computerScore;
+        return console.log("You lose! Scissors beats paper.");
+    } else if (humanChoice === "scissors" && computerChoice === "rock") {
+        ++computerScore;
+        return console.log("You lose! Rock beats scissors.");
+    } else if (humanChoice === "scissors" && computerChoice === "paper") {
+        ++humanScore;
+        return console.log("You win! Scissors beats paper.");
+    } else {
+        return console.log("It's a tie!");
+    }
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection);

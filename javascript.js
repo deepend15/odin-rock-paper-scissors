@@ -15,8 +15,10 @@ function getHumanChoice() {
         return "rock";
     } else if (choice.toLowerCase() === "paper") {
         return "paper";
-    } else {
+    } else if (choice.toLowerCase() === "scissors") {
         return "scissors";
+    } else {
+        alert("The word you entered was not recognized, please try again.");
     }
 }
 
@@ -42,8 +44,10 @@ function playGame() {
         } else if (humanChoice === "scissors" && computerChoice === "paper") {
             ++humanScore;
             return alert(`You win! Scissors beats paper.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-        } else {
+        } else if (humanChoice === computerChoice) {
             return alert(`It's a tie!\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
+        } else {
+            return alert(`Make sure your choice is spelled correctly! \(\"scissors\" is hard\).`);
         }
     }
     playRound(getHumanChoice(), getComputerChoice());

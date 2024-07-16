@@ -11,11 +11,11 @@ function getComputerChoice() {
 
 function getHumanChoice() {
     let choice = prompt("Choose rock, paper, or scissors!");
-    if (choice.toLowerCase() === "rock") {
+    if ((choice.trim()).toLowerCase() === "rock") {
         return "rock";
-    } else if (choice.toLowerCase() === "paper") {
+    } else if ((choice.trim()).toLowerCase() === "paper") {
         return "paper";
-    } else if (choice.toLowerCase() === "scissors") {
+    } else if ((choice.trim()).toLowerCase() === "scissors") {
         return "scissors";
     } else {
         alert("The word you entered was not recognized, please try again.");

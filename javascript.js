@@ -9,91 +9,70 @@ function getComputerChoice() {
     }
 }
 
-// function getHumanChoice() {
-//     let choice = prompt("Choose rock, paper, or scissors!");
-//     if ((choice.trim()).toLowerCase() === "rock") {
-//         return "rock";
-//     } else if ((choice.trim()).toLowerCase() === "paper") {
-//         return "paper";
-//     } else if ((choice.trim()).toLowerCase() === "scissors") {
-//         return "scissors";
-//     } else {
-//         alert("The word you entered was not recognized, please try again.");
-//     }
-// }
+let humanScore = 0;
+let computerScore = 0;
 
 const buttons = document.querySelectorAll("button");
+
+const results = document.createElement("div");
+const score = document.createElement("div");
+results.setAttribute('style', 'white-space: pre;');
+score.setAttribute('style', 'white-space: pre;');
+
+const body = document.querySelector("body");
+
+body.appendChild(results);
+body.appendChild(score);
 
 function playRound(e) {
     let playerSelection = e.target.innerText.toLowerCase();
     let computerChoice = getComputerChoice();
-    let humanScore = 0;
-    let computerScore = 0;
+
     if (playerSelection === "rock" && computerChoice === "paper") {
         ++computerScore;
-        return alert(`You lose! Paper beats rock.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
+        results.textContent = `Computer choice: paper\r\n\r\nYou lose! Paper beats rock.\r\n\r\n`;
     } else if (playerSelection === "rock" && computerChoice === "scissors") {
         ++humanScore;
-        return alert(`You win! Rock beats scissors.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
+        results.textContent = `Computer choice: scissors\r\n\r\nYou win! Rock beats scissors.\r\n\r\n`;
     } else if (playerSelection === "paper" && computerChoice === "rock") {
         ++humanScore;
-        return alert(`You win! Paper beats rock.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
+        results.textContent = `Computer choice: rock\r\n\r\nYou win! Paper beats rock.\r\n\r\n`;
     } else if (playerSelection === "paper" && computerChoice === "scissors") {
         ++computerScore;
-        return alert(`You lose! Scissors beats paper.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
+        results.textContent = `Computer choice: scissors\r\n\r\nYou lose! Scissors beats paper.\r\n\r\n`;
     } else if (playerSelection === "scissors" && computerChoice === "rock") {
         ++computerScore;
-        return alert(`You lose! Rock beats scissors.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
+        results.textContent = `Computer choice: rock\r\n\r\nYou lose! Rock beats scissors.\r\n\r\n`;
     } else if (playerSelection === "scissors" && computerChoice === "paper") {
         ++humanScore;
-        return alert(`You win! Scissors beats paper.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
+        results.textContent = `Computer choice: paper\r\n\r\nYou win! Scissors beats paper.\r\n\r\n`;
     } else if (playerSelection === computerChoice) {
-        return alert(`It's a tie!\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-    } 
+        results.textContent = `Computer choice: ${computerChoice}\r\n\r\nIt's a tie!\r\n\r\n`;
+    }
+
+    score.textContent = `Your score: ${humanScore}\r\nComputer score: ${computerScore}`;
+
+    // end the game at 5
+    
+    if (humanScore === 5) {
+        const playerWins = document.createElement("div");
+        playerWins.setAttribute('style', 'white-space: pre;');
+        playerWins.textContent = `\r\nGAME OVER\r\n\r\nCongrats! You win! Refresh to play again.`;
+        body.appendChild(playerWins);
+        buttons.forEach((button) => {
+            button.removeEventListener("click", playRound);
+        })
+    } else if (computerScore === 5) {
+        const computerWins = document.createElement("div");
+        computerWins.setAttribute('style', 'white-space: pre;');
+        computerWins.textContent = `\r\nGAME OVER\r\n\r\nSorry, you lose. Refresh to try again.`;
+        body.appendChild(computerWins);
+        buttons.forEach((button) => {
+            button.removeEventListener("click", playRound);
+        })
+    };
 }
 
 buttons.forEach((button) => {
     button.addEventListener("click", playRound);
 })
-
-
-// function playGame() {
-//     let humanScore = 0;
-//     let computerScore = 0;
-//     function playRound(humanChoice, computerChoice) {
-//         if (humanChoice === "rock" && computerChoice === "paper") {
-//             ++computerScore;
-//             return alert(`You lose! Paper beats rock.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-//         } else if (humanChoice === "rock" && computerChoice === "scissors") {
-//             ++humanScore;
-//             return alert(`You win! Rock beats scissors.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-//         } else if (humanChoice === "paper" && computerChoice === "rock") {
-//             ++humanScore;
-//             return alert(`You win! Paper beats rock.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-//         } else if (humanChoice === "paper" && computerChoice === "scissors") {
-//             ++computerScore;
-//             return alert(`You lose! Scissors beats paper.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-//         } else if (humanChoice === "scissors" && computerChoice === "rock") {
-//             ++computerScore;
-//             return alert(`You lose! Rock beats scissors.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-//         } else if (humanChoice === "scissors" && computerChoice === "paper") {
-//             ++humanScore;
-//             return alert(`You win! Scissors beats paper.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-//         } else if (humanChoice === computerChoice) {
-//             return alert(`It's a tie!\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-//         } else {
-//             return alert(`Make sure your choice is spelled correctly! \(\"scissors\" is hard\).`);
-//         }
-//     }
-//     playRound(getHumanChoice(), getComputerChoice());
-    
-//     if (humanScore > computerScore) {
-//         alert(`Congrats! You win!\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-//     } else if (humanScore < computerScore) {
-//         alert(`Sorry, you lose. Refresh the page to try again.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-//     } else {
-//         alert(`It's a draw! Refresh the page to try again.\n\nYour score: ${humanScore}\nComputer score: ${computerScore}`);
-//     }
-// }
-
-// playGame()
